@@ -16,7 +16,7 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
-        `hello ${msg.chat.first_name}, selamat datang di bot prediksi x dan y...\n
+        `hello ${msg.chat.first_name}, welcome...\n
         click /predict`
     );  
     state=0;
@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai X1|X2|X3 contoh 9|9|2`
+        `masukan nilai x1|y1 contoh 9|9`
     );   
     state =1;
 });
@@ -38,19 +38,67 @@ bot.on('message',(msg) =>{
 [
     parseFloat(s[0]), // string to float
     parseFloat(s[1])
-    parseFloat(s[2])
-])
-}});
+]
+   
+).then((jres1)=>{
+console.log(jres1);
+         
+    cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat (jres1[1])]).then((jres2) => {
+    bot.sendMessage(
+         msg.chat.id,
+         `nilai yang diprediksi adalah ${jres1[0]} x`
+
+);
+    bot.sendMessage(
+         msg.chat.id,
+           `nilai x yang diprediksi adalah ${jres1[1]} y`
+);
+    bot.sendMessage(
+          msg.chat.id,
+            `klasifikasi ${jres2}`
+            );
+        state = 0;
+        })
+   })
+}else{
+    bot.sendMessage(
+         msg.chat.id,
+         `Please Click /start`
+    );
+state = 0;
+    }
+})
 
 // routers
-r.get('/predict/:i/:r', function(req, res, next) {    
+r.get('/predict/:x1/:y1', function(req, res, next) {    
     model.predict(
         [
             parseFloat(req.params.x1), // string to float
-            parseFloat(req.params.x2),
-            parseFloat(req.params.x3)
+            parseFloat(req.params.y1)
         ]
-    )
+    ).then((jres)=>{
+        res.json(jres);
+    })
 });
 
+// routers
+r.get('/Classify/:x1/:y1', function(req, res, next) {    
+    model.predict(
+        [
+            parseFloat(req.params.x1), // string to float
+            parseFloat(req.params.y1)
+        ] 
+    ).then((jres)=>{
+        cls_model.classify(
+            [
+            parseFloat(req.params.x1), // string to float
+            parseFloat(req.params.y1),
+            parseFloat(jres[0]), 
+            parseFloat(jres[1])
+            ]
+      ).then((jres_)=>{
+         res.json({jres,jres_})  
+            })
+        })
+});
 module.exports = r;

@@ -2,12 +2,12 @@ var express = require('express');
 var r = express.Router();
 
 // load pre-trained model
-const model = require('./sdk/model.js'); //predict 
-const cls_model = require('./sdk/cls_model.js'); //cls
+const model = require('api/sdk/model.js'); //predict 
+
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
-const token = '5057562264:AAFYkNhZ_IMT2GfjfpUg7lxzk--h09KKuRY'
+const token = '5057562264:AAEMEnFw5YMfv2KNepctJpntuokXy9zIKfg'
 const bot = new TelegramBot(token, {polling: true});
 
 state=0;
@@ -16,7 +16,7 @@ bot.onText(/\/start/, (msg) => {
     console.log(msg)
     bot.sendMessage(
         msg.chat.id,
-        `hello ${msg.chat.first_name}, welcome...\n
+        `hello ${msg.chat.first_name}, selamat datang di bot prediksi x dan y...\n
         click /predict`
     );  
     state=0;
@@ -26,7 +26,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai i|v contoh 9|9`
+        `masukan nilai X1|X2|X3 contoh 9|9|2`
     );   
     state =1;
 });

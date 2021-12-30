@@ -19,7 +19,6 @@ bot.onText(/\/start/, (msg) => {
         `hello ${msg.chat.first_name}, welcome...\n
         click /predict`
     );  
-    state=0;
 });
 
 // input I dan r
@@ -28,7 +27,7 @@ bot.onText(/\/predict/, (msg) => {
         msg.chat.id,
         `masukan nilai x1|y1 contoh 9|9`
     );   
-    state =1;
+    state = 1;
 });
 
 bot.on('message',(msg) =>{
@@ -54,6 +53,6 @@ bot.on('message',(msg) =>{
 }else{
 state = 0;
     }
-});
+})
 
-module.exports = r;
+

@@ -53,7 +53,7 @@ bot.on('message',(msg) =>{
             );
      bot.sendMessage(
          msg.chat.id,
-         `nilai x1 yang diprediksi adalah ${jres[2]} x3`
+         `nilai x3 yang diprediksi adalah ${jres[2]} x3`
             );
    })
 }else{

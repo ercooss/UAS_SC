@@ -41,24 +41,15 @@ bot.on('message',(msg) =>{
     parseFloat(s[0]), // string to float
     parseFloat(s[1])
 ]
-   
 ).then((jres)=>{
-console.log(jres);
-         
-    model.predict(
-        [
-         parseFloat(s[0]), 
-         parseFloat(s[1]), 
-    ).then((jres) =>{
     bot.sendMessage(
          msg.chat.id,
          `nilai x yang diprediksi adalah ${jres[0]} x`
-);
+            );
     bot.sendMessage(
          msg.chat.id,
           `nilai y yang diprediksi adalah ${jres[1]} y`
-);
-        })
+            );
    })
 }else{
 state = 0;

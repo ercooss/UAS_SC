@@ -3,7 +3,7 @@ var r = express.Router();
 
 // load pre-trained model
 const model = require('api/sdk/model.js'); //predict 
-const cls_model = require('api/sdk/cls_model.js'); //cls
+
 
 // Bot Setting
 const TelegramBot = require('node-telegram-bot-api');
@@ -43,7 +43,7 @@ bot.on('message',(msg) =>{
 ).then((jres1)=>{
 console.log(jres1);
          
-    cls_model.classify([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat (jres1[1])]).then((jres2) => {
+    model.predict([parseFloat(s[0]), parseFloat(s[1]), parseFloat(jres1[0]), parseFloat (jres1[1])]).then((jres2) => {
     bot.sendMessage(
          msg.chat.id,
          `nilai yang diprediksi adalah ${jres1[0]} x`
@@ -68,28 +68,15 @@ console.log(jres1);
 state = 0;
     }
 })
-
 // routers
 r.get('/predict/:x1/:y1', function(req, res, next) {    
     model.predict(
         [
             parseFloat(req.params.x1), // string to float
             parseFloat(req.params.y1)
-        ]
-    ).then((jres)=>{
-        res.json(jres);
-    })
-});
-
-// routers
-r.get('/Classify/:x1/:y1', function(req, res, next) {    
-    model.predict(
-        [
-            parseFloat(req.params.x1), // string to float
-            parseFloat(req.params.y1)
         ] 
     ).then((jres)=>{
-        cls_model.classify(
+        model.predict(
             [
             parseFloat(req.params.x1), // string to float
             parseFloat(req.params.y1),

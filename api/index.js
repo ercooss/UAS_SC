@@ -58,20 +58,10 @@ console.log(jres);
          msg.chat.id,
           `nilai y yang diprediksi adalah ${jres[1]} y`
 );
-        state = 0;
         })
    })
 }else{
-    bot.sendMessage(
-         msg.chat.id,
-         `Please Click /start`
-    );
 state = 0;
     }
-})
-// routers
-
-            })
-        })
 });
 module.exports = r;

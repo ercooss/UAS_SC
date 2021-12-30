@@ -31,7 +31,7 @@ function ArgMax(res){
   }
 
 
-async function classify(data){
+async function predict(data){
     let in_dim = 6; //i r v p
     
     data = normalized(data);
@@ -56,5 +56,5 @@ async function classify(data){
 }
 
 module.exports = {
-    classify: classify 
+    predict : predict 
 }

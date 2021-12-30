@@ -55,7 +55,7 @@ console.log(jres1);
 );
     bot.sendMessage(
           msg.chat.id,
-            `klasifikasi ${jres2}`
+            `prediksi ${jres2}`
             );
         state = 0;
         })

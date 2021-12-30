@@ -55,4 +55,4 @@ bot.on('message',(msg) =>{
 state = 0;
     }
 });
-module.exports = r;
+

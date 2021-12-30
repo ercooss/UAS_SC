@@ -25,7 +25,7 @@ bot.onText(/\/start/, (msg) => {
 bot.onText(/\/predict/, (msg) => { 
     bot.sendMessage(
         msg.chat.id,
-        `masukan nilai x1|y1 contoh 9|9`
+        `masukan nilai x1|x2|x3 contoh 9|9|3`
     );   
     state = 1;
 });
@@ -34,20 +34,26 @@ bot.on('message',(msg) =>{
     if(state == 1){
     s= msg.text.split("|");
     x1 = s[0]
-    y1 = s[1]
+    x2 = s[1]
+    x3 = s[2]  
      model.predict(
 [
     parseFloat(s[0]), // string to float
-    parseFloat(s[1])
+    parseFloat(s[1]),
+    parseFloat(s[2])
 ]
 ).then((jres)=>{
     bot.sendMessage(
          msg.chat.id,
-         `nilai x yang diprediksi adalah ${jres[0]} x`
+         `nilai x1 yang diprediksi adalah ${jres[0]} x1`
             );
     bot.sendMessage(
          msg.chat.id,
-          `nilai y yang diprediksi adalah ${jres[1]} y`
+          `nilai x2 yang diprediksi adalah ${jres[1]} x2`
+            );
+     bot.sendMessage(
+         msg.chat.id,
+         `nilai x1 yang diprediksi adalah ${jres[2]} x3`
             );
    })
 }else{

@@ -10,7 +10,7 @@ const TelegramBot = require('node-telegram-bot-api');
 const token = '5057562264:AAHLUz5s6G-8vDMtapgD6l1Y4Z2i5su7OlM'
 const bot = new TelegramBot(token, {polling: true});
 
-state=0;
+    state=0;
 // main menu bot
 bot.onText(/\/start/, (msg) => { 
     console.log(msg)
@@ -19,6 +19,7 @@ bot.onText(/\/start/, (msg) => {
         `hello ${msg.chat.first_name}, welcome...\n
         click /predict`
     );  
+   state = 0;
 });
 
 // input I dan r
@@ -55,6 +56,7 @@ bot.on('message',(msg) =>{
          msg.chat.id,
          `nilai x3 yang diprediksi adalah ${jres[2]} x3`
             );
+    state = 0;
    })
 }else{
 state = 0;
